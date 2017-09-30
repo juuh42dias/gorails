@@ -23,31 +23,31 @@ class Event < ActiveRecord::Base
 
 # Returns false if event is full
   def exceeded_limit?
-    return true if self.registrations.size >= self.participants_limit
+    return true if registrations.size >= participants_limit
     false
   end
 
   validates_presence_of :name, :description, :local, :participants_limit, :start_at, :end_at
 # Returns duration of event
   def event_duration
-    ((self.end_at - self.start_at) / 1.hour).round
+    ((end_at - start_at) / 1.hour).round
   end
 
   def event_happened?
-    DateTime.now > self.end_at
+    DateTime.now > end_at
   end
 
   def inscriptions_open?
-    self.status
+    status
   end
 
   def remaining_vacancies
-    self.participants_limit - self.registrations.size
+    participants_limit - registrations.size
   end
 
   def get_event_cover_image
-    if self.albums.first
-      self.albums.first.images.first.asset.medium.url
+    if albums.first
+      albums.first.images.first.asset.medium.url
     else
       asset_path "bg-red.jpg"
     end

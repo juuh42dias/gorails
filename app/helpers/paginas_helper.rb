@@ -7,7 +7,7 @@ module PaginasHelper
   # lines_of_code(html)
   # Returns a number of lines of codes based on parameter
   def lines_of_code(ext)
-     
+
 
     o = 0 # Number of files
     n = 0 # Number of lines of code
@@ -32,12 +32,12 @@ module PaginasHelper
 
     puts "#{o.to_s} files."
     puts "#{n.to_s} lines of code."
-    puts "#{(n.to_f/o.to_f).round(2)} LOC/file."
+    puts "#{(n.to_f / o.to_f).round(2)} LOC/file."
     puts "#{m.to_s} lines of comments."
-    return n
+    n
   end
-# Returns number of registrated users 
+# Returns number of registrated users
   def users_ammount
-    return User.all.size
+    User.all.size
   end
 end

@@ -25,7 +25,8 @@ module Go # :nodoc:
         template "locales/view_locale.yml", File.join('config/locales/pt-BR/views', "#{plural_name}.yml")
       end
 
-    protected
+      protected
+
       def available_views
         # use all template files contained in source_root ie 'lib/templates/scaffold/**/*'
         base = self.class.source_root

@@ -9,9 +9,9 @@ class Attachment < ActiveRecord::Base
 
   scope :situation_true, -> {where(situation: true)}
 
-  private 
+  private
 
-    def attachment_size_validation
-      errors[:data] << "should be less than 3MB" if data.size > 3.megabytes
-    end
+  def attachment_size_validation
+    errors[:data] << "should be less than 3MB" if data.size > 3.megabytes
+  end
 end

@@ -15,16 +15,16 @@ module ApplicationHelper
   def show_by_file_type(attachment)
     if attachment.present?
       case File.extname(attachment.file.filename)
-        when ".doc"
-          link_to attachment.file.filename, attachment.url
-        when ".docx"
-          link_to attachment.file.filename, attachment.url
-        when ".pdf"
-          link_to attachment.file.filename, attachment.url
-        when ".txt"
-          link_to attachment.file.filename, attachment.url
-        else
-          image_tag attachment.thumb.url
+      when ".doc"
+        link_to attachment.file.filename, attachment.url
+      when ".docx"
+        link_to attachment.file.filename, attachment.url
+      when ".pdf"
+        link_to attachment.file.filename, attachment.url
+      when ".txt"
+        link_to attachment.file.filename, attachment.url
+      else
+        image_tag attachment.thumb.url
       end
     else
       "Nenhum arquivo cadastrado."
@@ -37,32 +37,32 @@ module ApplicationHelper
 
   def flash_error_color(name)
     case name
-      when 'success' then
-        '#27ae60'
-      when 'error' then
-        '#ae5757'
-      when 'alert' then
-        '#edc613 '
-      when 'notice' then
-        '#27ae60'
-      else
-        name
+    when 'success' then
+      '#27ae60'
+    when 'error' then
+      '#ae5757'
+    when 'alert' then
+      '#edc613 '
+    when 'notice' then
+      '#27ae60'
+    else
+      name
     end
   end
 
 
   def flash_message_title(name)
     case name
-      when 'success' then
-        'Sucesso'
-      when 'error' then
-        'Atenção'
-      when 'alert' then
-        'Atenção '
-      when 'notice' then
-        'Atenção'
-      else
-        name
+    when 'success' then
+      'Sucesso'
+    when 'error' then
+      'Atenção'
+    when 'alert' then
+      'Atenção '
+    when 'notice' then
+      'Atenção'
+    else
+      name
     end
   end
 
@@ -77,7 +77,7 @@ module ApplicationHelper
   end
 
   def link_to_image(image_path, target_link, options={})
-    link_to(image_tag(image_path, :border => "0", class: "image-size"), target_link, options)
+    link_to(image_tag(image_path, border: "0", class: "image-size"), target_link, options)
   end
 
   def date_picker(form, field, label=nil, place_holder=nil, required=false, style=nil, disabled_plugin=false, valor_conteudo=nil, onchange=nil)
@@ -98,13 +98,13 @@ module ApplicationHelper
   end
 
   def markdown(text)
-    coderayified = CodeRayify.new(:filter_html => true,
-                                  :hard_wrap => true)
+    coderayified = CodeRayify.new(filter_html: true,
+                                  hard_wrap: true)
     options = {
-        :fenced_code_blocks => true,
-        :no_intra_emphasis => true,
-        :autolink => true,
-        :lax_html_blocks => true,
+        fenced_code_blocks: true,
+        no_intra_emphasis: true,
+        autolink: true,
+        lax_html_blocks: true,
     }
     markdown_to_html = Redcarpet::Markdown.new(coderayified, options)
     markdown_to_html.render(text).html_safe
@@ -116,9 +116,8 @@ module ApplicationHelper
 
   def get_github_user(user)
     social_network = user.social_networks.where("link like '%github%'").first
-    social_network != nil ?  social_network.link.split('/')[-1] : nil
+    social_network != nil ? social_network.link.split('/')[-1] : nil
   end
 
 
 end
-

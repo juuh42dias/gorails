@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 class AttachmentsUploader < CarrierWave::Uploader::Base
 
 
@@ -43,17 +41,17 @@ class AttachmentsUploader < CarrierWave::Uploader::Base
 
   # Create different versions of your uploaded files:
 
-  version :thumb, :if => :image? do
-    process :resize_to_limit => [200, 200]
+  version :thumb, if: :image? do
+    process resize_to_limit: [200, 200]
   end
 
-  version :medium, :if => :image? do 
-    process :resize_to_limit => [400, 400]
+  version :medium, if: :image? do
+    process resize_to_limit: [400, 400]
   end
 
-  version :large, :if => :image? do
-    process :resize_to_limit => [1200, 800]
-    process :watermark => [Rails.root.join('app/assets/images/logo_sem_nome_mini.png')]
+  version :large, if: :image? do
+    process resize_to_limit: [1200, 800]
+    process watermark: [Rails.root.join('app/assets/images/logo_sem_nome_mini.png')]
   end
 
   # Add a white list of extensions which are allowed to be uploaded.
@@ -69,9 +67,10 @@ class AttachmentsUploader < CarrierWave::Uploader::Base
   # end
 
   protected
-    def image?(new_file)
-      new_file.content_type.start_with? 'image'
-    end
+
+  def image?(new_file)
+    new_file.content_type.start_with? 'image'
+  end
 
 
 end

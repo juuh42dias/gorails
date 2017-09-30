@@ -6,7 +6,7 @@
 #   before do
 #     AttachmentsUploader.enable_processing = true
 #     @uploader = AttachmentsUploader.new(@attachment, :data)
-    
+
 #     path_to_file = @uploader.data
 
 #     File.open(path_to_file) do |f|

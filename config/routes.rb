@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   resources :images
   resources :albums
-  resources :links, :path => "links" do
+  resources :links, path: "links" do
     collection do
       get 'uteis'
     end
@@ -19,8 +19,8 @@ Rails.application.routes.draw do
     resources :registrations, controller: 'event_registrations'
   end
   resources :attachments
-  devise_for :users, :controllers => {registrations: 'registrations', omniauth_callbacks: "omniauth_callbacks"}
-  resources :users, :only => [:show]
+  devise_for :users, controllers: {registrations: 'registrations', omniauth_callbacks: "omniauth_callbacks"}
+  resources :users, only: [:show]
 
   get "/paginas/:pagina" => "paginas#show"
   root "paginas#show", pagina: "home"

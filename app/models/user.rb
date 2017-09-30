@@ -17,42 +17,42 @@ class User < ActiveRecord::Base
     :omniauthable
 
   HUMANIZED_ATTRIBUTES = {
-    :id => "Usuario",
-    :email => "E-mail",
-    :password => "Senha",
-    :password_confirmation => "Confirmação de Senha",
-    :remember_me => "Lembrar-me",
-    :current_password => 'Senha Atual',
-    :first_name => 'Primeiro Nome',
-    :last_name => 'Ultimo Nome',
-    :cpf => "CPF",
-    :nickname => "Nickname",
-    :bio => "Biografia",
-    :company => "Empresa/Instituição de Ensino",
-    :gender => "Sexo",
-    :job_title => "Cargo/Função",
-    :phone => "Telefône(Fixo)",
-    :celphone => "Telefône(Celular)",
-    :schooling => "Escolaridade",
-    :birth_date => "Data de nascimento",
-    :marital_status => "Estado civil",
-    :father => "Filiação(Pai)",
-    :mother => "Filiação(Mãe)",
-    :consignor_organ => "Órgão Expedidor",
-    :place_of_birth => "Naturalidade",
-    :special_needs => "Necessidades Especiais: (Física, Mental, Visual, Auditiva ou Nenhuma)",
-    :occupation => "Situação Ocupacional",
-    :rg => "Identidade",
-    :address => "Endereço",
-    :uf => "UF",
-    :neighborhood => "Bairro",
-    :zip_code => "CEP",
-    :complement => "Complemento"
+    id: "Usuario",
+    email: "E-mail",
+    password: "Senha",
+    password_confirmation: "Confirmação de Senha",
+    remember_me: "Lembrar-me",
+    current_password: 'Senha Atual',
+    first_name: 'Primeiro Nome',
+    last_name: 'Ultimo Nome',
+    cpf: "CPF",
+    nickname: "Nickname",
+    bio: "Biografia",
+    company: "Empresa/Instituição de Ensino",
+    gender: "Sexo",
+    job_title: "Cargo/Função",
+    phone: "Telefône(Fixo)",
+    celphone: "Telefône(Celular)",
+    schooling: "Escolaridade",
+    birth_date: "Data de nascimento",
+    marital_status: "Estado civil",
+    father: "Filiação(Pai)",
+    mother: "Filiação(Mãe)",
+    consignor_organ: "Órgão Expedidor",
+    place_of_birth: "Naturalidade",
+    special_needs: "Necessidades Especiais: (Física, Mental, Visual, Auditiva ou Nenhuma)",
+    occupation: "Situação Ocupacional",
+    rg: "Identidade",
+    address: "Endereço",
+    uf: "UF",
+    neighborhood: "Bairro",
+    zip_code: "CEP",
+    complement: "Complemento"
   }
 
-  #def admin?
+  # def admin?
   # self.admin == true
-  #end
+  # end
   has_many :winners
   # validates :terms_of_service, acceptance: true
   has_many :registrations
@@ -60,13 +60,13 @@ class User < ActiveRecord::Base
   validate :unicidade_cpf
   usar_como_cpf :cpf
 
-  validates_presence_of :first_name, :last_name, :cpf, :rg, :consignor_organ, :company, :phone, :celphone, :schooling, :birth_date, :gender, :marital_status, :place_of_birth, :mother, :address, :neighborhood, :uf, :zip_code, :special_needs, :complement, :if => lambda { self.need_certificate.present? }
+  validates_presence_of :first_name, :last_name, :cpf, :rg, :consignor_organ, :company, :phone, :celphone, :schooling, :birth_date, :gender, :marital_status, :place_of_birth, :mother, :address, :neighborhood, :uf, :zip_code, :special_needs, :complement, if: lambda { need_certificate.present? }
 
   has_many :attachments, as: :origin
   mount_uploader :avatar, AttachmentsUploader
   mount_uploader :cover_photo, AttachmentsUploader
   accepts_nested_attributes_for :attachments
-  accepts_nested_attributes_for :social_networks, reject_if: proc {|a| a[:link].blank?},allow_destroy: true
+  accepts_nested_attributes_for :social_networks, reject_if: proc {|a| a[:link].blank?}, allow_destroy: true
 
   def name
     [first_name, last_name].join(" ").strip
@@ -80,7 +80,7 @@ class User < ActiveRecord::Base
   def self.to_csv(options = {})
     CSV.generate(options) do |csv|
       lista = []
-      column_names.each { |coluna| lista << self.human_attribute_name(coluna) }
+      column_names.each { |coluna| lista << human_attribute_name(coluna) }
       csv << lista
       all.each { |registro| csv << registro.attributes.values_at(*column_names) }
     end
@@ -88,21 +88,21 @@ class User < ActiveRecord::Base
 
   # Verify if cpf attribute is valid
   def has_valid_cpf?
-    self.cpf.valido?
+    cpf.valido?
   end
 
   def unicidade_cpf
-    if self.cpf.present? && User.where(:cpf => self.cpf).where("id <> ?", self.id || 0).first
+    if cpf.present? && User.where(cpf: cpf).where("id <> ?", id || 0).first
       errors.add(:cpf, "já está em uso")
     end
   end
 
   def need_updated_account?
-    self.cpf.nil? || self.first_name.nil? || self.last_name.nil?
+    cpf.nil? || first_name.nil? || last_name.nil?
   end
 
   def self.from_omniauth(access_token)
-    validates :email, :presence => false, :email => false
+    validates :email, presence: false, email: false
 
     provider = access_token.provider
     data = access_token.extra.raw_info
@@ -123,7 +123,7 @@ class User < ActiveRecord::Base
     user
   end
 
-  #Returns a full name of user, a combination of first name and last name
+  # Returns a full name of user, a combination of first name and last name
   def full_name
     if (first_name && last_name) && (!first_name.blank? && !last_name.blank?)
       " #{first_name} #{last_name}"
@@ -132,7 +132,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  #Returns a first name of user, if it is blank return first part of email
+  # Returns a first name of user, if it is blank return first part of email
   def event_name
     if first_name && !first_name.blank?
       " #{first_name}"
@@ -142,22 +142,22 @@ class User < ActiveRecord::Base
   end
 
   def data_completed
-    return true if self.rg.present? &&
-      self.consignor_organ.present? &&
-      self.company.present? &&
-      self.phone.present? &&
-      self.celphone.present? &&
-      self.schooling.present? &&
-      self.birth_date.present? &&
-      self.gender.present? &&
-      self.marital_status.present? &&
-      self.place_of_birth.present? &&
-      self.mother.present? &&
-      self.address.present? &&
-      self.neighborhood.present? &&
-      self.uf.present? &&
-      self.zip_code.present? &&
-      self.special_needs.present? &&
-      self.complement.present?
+    return true if rg.present? &&
+      consignor_organ.present? &&
+      company.present? &&
+      phone.present? &&
+      celphone.present? &&
+      schooling.present? &&
+      birth_date.present? &&
+      gender.present? &&
+      marital_status.present? &&
+      place_of_birth.present? &&
+      mother.present? &&
+      address.present? &&
+      neighborhood.present? &&
+      uf.present? &&
+      zip_code.present? &&
+      special_needs.present? &&
+      complement.present?
   end
 end

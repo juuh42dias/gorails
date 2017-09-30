@@ -76,6 +76,7 @@ class EventsController < ApplicationController
   end
 
   private
+
   # Use callbacks to share common setup or constraints between actions.
   def set_event
     @event = Event.find(params[:id])
@@ -98,11 +99,11 @@ class EventsController < ApplicationController
   end
 
   def error_email_already_register
-    redirect_to events_path, flash: {:error => "Este email já está registrado no evento!!"}
+    redirect_to events_path, flash: {error: "Este email já está registrado no evento!!"}
   end
 
   def error_necessary_cpf
-    redirect_to event_path(@event), :flash => {error: "Cpf necessario!"}
+    redirect_to event_path(@event), flash: {error: "Cpf necessario!"}
   end
 
   def register_success
@@ -114,12 +115,12 @@ class EventsController < ApplicationController
   end
 
   def update_user_need_certificate
-    return need_certificate if @user.update_attributes(:need_certificate => params[:register][:need_certificate])
+    return need_certificate if @user.update_attributes(need_certificate: params[:register][:need_certificate])
   end
 
   def update_cpf_and_registre
-    return register_success if @user.update_attributes(:cpf => params[:register][:cpf]) and @event.to_register(set_user.id)
-    redirect_to event_path(@event), :flash => {error: "Cpf Invalido!"}
+    return register_success if @user.update_attributes(cpf: params[:register][:cpf]) and @event.to_register(set_user.id)
+    redirect_to event_path(@event), flash: {error: "Cpf Invalido!"}
   end
 
 end

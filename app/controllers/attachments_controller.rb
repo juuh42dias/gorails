@@ -51,14 +51,15 @@ class AttachmentsController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
-    def set_attachment
-      @attachment = Attachment.find(params[:id])
-    end
+  def set_attachment
+    @attachment = Attachment.find(params[:id])
+  end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def attachment_params
-      # params.fetch(:attachment)
-      params.require(:attachment).permit(:name, :file_type, :data, :origin_type, :situation, :origin_id)
-    end
+  def attachment_params
+    # params.fetch(:attachment)
+    params.require(:attachment).permit(:name, :file_type, :data, :origin_type, :situation, :origin_id)
+  end
 end

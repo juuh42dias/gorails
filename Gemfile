@@ -25,7 +25,7 @@ gem 'sweet-alert-confirm'
 gem 'devise'
 gem 'cancancan'
 gem 'rolify'
-gem 'coveralls','>= 0.8.21', require: false
+gem 'coveralls', '>= 0.8.21', require: false
 gem 'simple_form'
 gem 'rails-i18n'
 gem 'brcpfcnpj'

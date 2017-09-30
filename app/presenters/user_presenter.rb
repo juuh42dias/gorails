@@ -18,7 +18,7 @@ class UserPresenter < Burgundy::Item
     avatar_url   = item.try(:avatar).present? ? item.avatar_url : gravatar_url(size)
     html_attrs.update(class: html_classes) if css
     html_data.update(toggle: 'tooltip', placement: 'top') if tooltip
-    html_data.update(:'original-title' => item.event_name) if tooltip && item.try(:event_name)
+    html_data.update('original-title': item.event_name) if tooltip && item.try(:event_name)
     html_attrs.update(data: html_data) if html_data.present?
     h.image_tag(avatar_url, html_attrs)
   end

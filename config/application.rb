@@ -19,11 +19,11 @@ module Gorails
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
-    config.assets.paths << Rails.root.join('app','assets','fonts','javascripts/core','javascripts/plugins','javascripts/plugins/magnific-popup','images/avatars','images/favicons','images/photos','images/various')
-    #config.assets.precompile += %w( .svg .eot .woff .ttf)
-    #config.assets.precompile << /\.(?:svg|eot|woff|ttf)$/
+    config.assets.paths << Rails.root.join('app', 'assets', 'fonts', 'javascripts/core', 'javascripts/plugins', 'javascripts/plugins/magnific-popup', 'images/avatars', 'images/favicons', 'images/photos', 'images/various')
+    # config.assets.precompile += %w( .svg .eot .woff .ttf)
+    # config.assets.precompile << /\.(?:svg|eot|woff|ttf)$/
 
-    config.i18n.load_path += Dir[Rails.root.join('config', 'locales','**', '*.{rb,yml}').to_s]
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :'pt-BR'
 
     config.generators do |g|

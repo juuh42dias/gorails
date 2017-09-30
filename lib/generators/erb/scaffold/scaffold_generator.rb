@@ -21,7 +21,7 @@ module Erb # :nodoc:
         end
       end
 
-    protected
+      protected
 
       def available_views
         %w(show new _form)

@@ -2,13 +2,13 @@ module Commontator
   class SubscriptionsMailer < ActionMailer::Base
     def comment_created(comment, recipients)
       setup_variables(comment, recipients)
-      message = mail :to => @to,
-                     :bcc => @bcc,
-                     :from => @from,
-                     :subject => t('commontator.email.comment_created.subject',
-                                   :creator_name => @creator_name,
-                                   :commontable_name => @commontable_name,
-                                   :comment_url => @comment_url)
+      message = mail to: @to,
+                     bcc: @bcc,
+                     from: @from,
+                     subject: t('commontator.email.comment_created.subject',
+                                   creator_name: @creator_name,
+                                   commontable_name: @commontable_name,
+                                   comment_url: @comment_url)
 
       message.mailgun_recipient_variables = mailgun_recipient_variables(recipients) if uses_mailgun?
     end
